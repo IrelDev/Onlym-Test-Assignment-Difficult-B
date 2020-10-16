@@ -8,5 +8,6 @@
 import Foundation
 
 struct ArticleModel: Codable {
-    let title, text: String
+    let title: String
+    let text: String
 }
