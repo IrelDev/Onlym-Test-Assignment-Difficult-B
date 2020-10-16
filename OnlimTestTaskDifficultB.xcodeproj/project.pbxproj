@@ -10,7 +10,7 @@
 		C25853F02539DEE80015CA45 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853EF2539DEE80015CA45 /* HomeModel.swift */; };
 		C25853F32539DF010015CA45 /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853F22539DF010015CA45 /* ArticleModel.swift */; };
 		C25853F62539DF080015CA45 /* BannerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853F52539DF080015CA45 /* BannerModel.swift */; };
-		C25853FA2539E37D0015CA45 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853F92539E37D0015CA45 /* DataFetcher.swift */; };
+		C25853FA2539E37D0015CA45 /* DataFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853F92539E37D0015CA45 /* DataFetcherService.swift */; };
 		C2AD68D52539D1B700187118 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AD68D42539D1B700187118 /* AppDelegate.swift */; };
 		C2AD68D72539D1B700187118 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AD68D62539D1B700187118 /* SceneDelegate.swift */; };
 		C2AD68D92539D1B700187118 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AD68D82539D1B700187118 /* HomeViewController.swift */; };
@@ -24,7 +24,7 @@
 		C25853EF2539DEE80015CA45 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		C25853F22539DF010015CA45 /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
 		C25853F52539DF080015CA45 /* BannerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModel.swift; sourceTree = "<group>"; };
-		C25853F92539E37D0015CA45 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
+		C25853F92539E37D0015CA45 /* DataFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherService.swift; sourceTree = "<group>"; };
 		C2AD68D12539D1B700187118 /* OnlimTestTaskDifficultB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlimTestTaskDifficultB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2AD68D42539D1B700187118 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2AD68D62539D1B700187118 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C23778C82539EA0F0051FB52 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C25853F92539E37D0015CA45 /* DataFetcherService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C2AD68C82539D1B700187118 = {
 			isa = PBXGroup;
 			children = (
@@ -67,12 +75,11 @@
 		C2AD68D32539D1B700187118 /* OnlimTestTaskDifficultB */ = {
 			isa = PBXGroup;
 			children = (
-				C2AD68F02539D70D00187118 /* Models */,
-				C2AD68F12539D71100187118 /* Views */,
-				C25853F92539E37D0015CA45 /* DataFetcher.swift */,
 				C2AD68D42539D1B700187118 /* AppDelegate.swift */,
 				C2AD68D62539D1B700187118 /* SceneDelegate.swift */,
-				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
+				C23778C82539EA0F0051FB52 /* Services */,
+				C2AD68F02539D70D00187118 /* Models */,
+				C2AD68F12539D71100187118 /* Views */,
 				C2AD68E22539D1B900187118 /* LaunchScreen.storyboard */,
 				C2AD68E02539D1B900187118 /* Assets.xcassets */,
 				C2AD68E52539D1B900187118 /* Info.plist */,
@@ -94,6 +101,7 @@
 		C2AD68F12539D71100187118 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,7 +183,7 @@
 				C25853F02539DEE80015CA45 /* HomeModel.swift in Sources */,
 				C25853F32539DF010015CA45 /* ArticleModel.swift in Sources */,
 				C2AD68D72539D1B700187118 /* SceneDelegate.swift in Sources */,
-				C25853FA2539E37D0015CA45 /* DataFetcher.swift in Sources */,
+				C25853FA2539E37D0015CA45 /* DataFetcherService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

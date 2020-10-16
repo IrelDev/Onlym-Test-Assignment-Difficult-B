@@ -1,5 +1,5 @@
 //
-//  DataFetcher.swift
+//  DataFetcherService.swift
 //  OnlimTestTaskDifficultB
 //
 //  Created by Kirill Pustovalov on 16.10.2020.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DataFetcher {
+struct DataFetcherService {
     func fetchDataFromURl<Type: Codable>(url: URL, completion: @escaping (Type?) -> Void) {        
         let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error ) in
             guard error == nil else { print(debugPrint(error!)); return }
