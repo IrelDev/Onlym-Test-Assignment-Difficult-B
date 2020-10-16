@@ -8,12 +8,12 @@
 import UIKit
 
 class BannerCollectionViewCell: UICollectionViewCell {
-    var name: String = "" {
+    private var name: String = "" {
         didSet {
             nameLabel.text = name
         }
     }
-    var color: String = "" {
+    private var color: String = "" {
         didSet {
             backgroundColor = UIColor(color)
         }
@@ -22,7 +22,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
     
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.font = nameLabel.font.withSize(27)
+        nameLabel.font = nameLabel.font.withSize(30)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.backgroundColor = .clear
         nameLabel.textAlignment = .center
