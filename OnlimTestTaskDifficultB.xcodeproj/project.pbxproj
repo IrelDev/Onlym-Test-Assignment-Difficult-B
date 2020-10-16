@@ -18,6 +18,9 @@
 		C2AD68E12539D1B900187118 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2AD68E02539D1B900187118 /* Assets.xcassets */; };
 		C2AD68E42539D1B900187118 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2AD68E22539D1B900187118 /* LaunchScreen.storyboard */; };
 		C2AD68ED2539D21C00187118 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C2AD68EC2539D21C00187118 /* README.md */; };
+		C2E3D4012539F34E007796C0 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4002539F34E007796C0 /* BannerCollectionViewCell.swift */; };
+		C2E3D4042539F35B007796C0 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4032539F35B007796C0 /* ArticleTableViewCell.swift */; };
+		C2E3D4092539F655007796C0 /* UIColorHexExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		C2AD68E32539D1B900187118 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2AD68E52539D1B900187118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2AD68EC2539D21C00187118 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C2E3D4002539F34E007796C0 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		C2E3D4032539F35B007796C0 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHexExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,7 @@
 			children = (
 				C2AD68D42539D1B700187118 /* AppDelegate.swift */,
 				C2AD68D62539D1B700187118 /* SceneDelegate.swift */,
+				C2E3D4072539F648007796C0 /* Extensions */,
 				C23778C82539EA0F0051FB52 /* Services */,
 				C2AD68F02539D70D00187118 /* Models */,
 				C2AD68F12539D71100187118 /* Views */,
@@ -102,8 +109,26 @@
 			isa = PBXGroup;
 			children = (
 				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
+				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C2E3D3FE2539F2FF007796C0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C2E3D4002539F34E007796C0 /* BannerCollectionViewCell.swift */,
+				C2E3D4032539F35B007796C0 /* ArticleTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C2E3D4072539F648007796C0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,9 +201,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E3D4042539F35B007796C0 /* ArticleTableViewCell.swift in Sources */,
+				C2E3D4012539F34E007796C0 /* BannerCollectionViewCell.swift in Sources */,
 				C2AD68D92539D1B700187118 /* HomeViewController.swift in Sources */,
 				C2AD68D52539D1B700187118 /* AppDelegate.swift in Sources */,
 				C25853F62539DF080015CA45 /* BannerModel.swift in Sources */,
+				C2E3D4092539F655007796C0 /* UIColorHexExtension.swift in Sources */,
 				C2AD68DF2539D1B700187118 /* OnlimTestTaskDifficultB.xcdatamodeld in Sources */,
 				C25853F02539DEE80015CA45 /* HomeModel.swift in Sources */,
 				C25853F32539DF010015CA45 /* ArticleModel.swift in Sources */,
