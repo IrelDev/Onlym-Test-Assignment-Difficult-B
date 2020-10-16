@@ -11,9 +11,17 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupNavigationBar()
     }
-
-
+    func setupNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsNavigationBarTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNavigationBarButtonTapped))
+    }
+    @objc func settingsNavigationBarTapped() {
+        
+    }
+    @objc func addNavigationBarButtonTapped() {
+        
+    }
 }
 
