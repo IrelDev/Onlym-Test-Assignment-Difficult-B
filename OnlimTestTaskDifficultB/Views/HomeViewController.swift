@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
         articleTableView.translatesAutoresizingMaskIntoConstraints = false
         return articleTableView
     }()
-    
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         firstLaunchHandler()
@@ -39,6 +39,10 @@ class HomeViewController: UIViewController {
         setupNavigationBar()
         setupViews()
         setupAutoLayout()
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        bannersCollectionView.collectionViewLayout.invalidateLayout()
     }
     func firstLaunchHandler() {
         let flag = "hasBeenLaunchedBeforeFlag"
@@ -194,7 +198,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: bannersCollectionView.bounds.width - 10, height: bannersCollectionView.bounds.height)
+        CGSize(width: bannersCollectionView.bounds.width - 10, height: bannersCollectionView.bounds.height - 1)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         10
