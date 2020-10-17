@@ -9,10 +9,7 @@ import UIKit
 import CoreData
 
 struct CoreDataService {
-    static let shared = CoreDataService()
-    public init() { }
-    
-    private func fetchHomeModelData() -> NSData? {
+    public func fetchHomeModelData() -> NSData? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -29,7 +26,7 @@ struct CoreDataService {
         }
         return nil
     }
-    private func saveHomeModelData(data: NSData) {
+    public func saveHomeModelData(data: NSData) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "HomeModelEntity", in: managedContext)!
