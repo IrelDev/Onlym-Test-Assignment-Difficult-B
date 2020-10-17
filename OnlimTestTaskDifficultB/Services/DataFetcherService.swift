@@ -10,7 +10,7 @@ import Foundation
 struct DataFetcherService {
     func fetchDataFromURl<Type: Codable>(url: URL, completion: @escaping (Type?) -> Void) {        
         let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error ) in
-            guard error == nil else { print(debugPrint(error!)); return }
+            guard error == nil else { print(debugPrint(error!)); completion(nil); return; }
             guard let data = data else { return }
             
             let jsonDecoder = JSONDecoder()
