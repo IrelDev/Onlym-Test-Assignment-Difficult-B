@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     var homeModel: HomeModel?
-
+    
     private let bannersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -44,18 +44,28 @@ class HomeViewController: UIViewController {
         let flag = "hasBeenLaunchedBeforeFlag"
         let isFirstLaunch = !UserDefaults.standard.bool(forKey: flag)
         
+        let coreDataService = CoreDataService()
         if isFirstLaunch {
             guard let url = URL(string: "https://onlym.ru/api_test/test.json") else { return }
             let dataFetcherService = DataFetcherService()
-            dataFetcherService.fetchDataFromURl(url: url) { [self] (response: HomeModel?) in
+            
+            dataFetcherService.fetchDataFromURl(url: url) { [self] (response: HomeModel?, data: Data?) in
                 if let response = response {
                     homeModel = response
-                    print("who")
-                    //save to coredata
+                    guard let data = data else { return }
+                    
+                    DispatchQueue.main.async {
+                        coreDataService.saveHomeModelData(data: data as NSData)
+                    }
+                    
                     UserDefaults.standard.set(true, forKey: flag)
                     UserDefaults.standard.synchronize()
+                    
+                    DispatchQueue.main.async {
+                        bannersCollectionView.reloadData()
+                        articleTableView.reloadData()
+                    }
                 } else {
-                    print("who")
                     let alert = UIAlertController(title: "Что-то сломалось", message: "Произошла ошибка. Проверьте, есть ли подключение к интернету", preferredStyle: .alert)
                     let retryAction = UIAlertAction(title: "Попробовать еще раз", style: .default) { _ in
                         firstLaunchHandler()
@@ -73,8 +83,19 @@ class HomeViewController: UIViewController {
                 }
             }
         } else {
-            //check is in coredata
-            //homemodel = coredata..
+            DispatchQueue.main.async {
+                let data = coreDataService.fetchHomeModelData()
+                
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.dateDecodingStrategy = .iso8601
+                
+                let coreDataHomeModel = try? jsonDecoder.decode(HomeModel.self, from: data! as Data)
+                guard coreDataHomeModel != nil else { return }
+                self.homeModel = coreDataHomeModel
+                
+                self.bannersCollectionView.reloadData()
+                self.articleTableView.reloadData()
+            }
         }
     }
     func setupNavigationBar() {
@@ -108,24 +129,29 @@ class HomeViewController: UIViewController {
         ])
     }
     @objc func settingsNavigationBarTapped() {
-        
+        let settingsViewController = SettingsViewController()
+        navigationController?.pushViewController(settingsViewController, animated: true)
     }
     @objc func addNavigationBarButtonTapped() {
-        
+        let newBannerViewController = NewBannerViewController()
+        navigationController?.pushViewController(newBannerViewController, animated: true)
+        newBannerViewController.onSaveClosure = {
+            self.bannersCollectionView.reloadData()
+            self.articleTableView.reloadData()
+        }
     }
 }
 // MARK: - UITableViewExtensions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        guard let homeModel = homeModel else { return 0 }
+        return homeModel.articles.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "articlesTableViewCell", for: indexPath as IndexPath) as! ArticleTableViewCell
-        if indexPath.row == 2 {
-            cell.setupCellData(title: "Title + \(indexPath.row)", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla arcu a ipsum iaculis placerat. Vestibulum quis interdum neque. Nullam diam dui, fermentum ut tempus venenatis, volutpat vitae leo. Nulla facilisi. Aliquam convallis id urna sed vestibulum. Nunc nec mauris eleifend, feugiat lacus vitae, consequat nisi. Suspendisse gravida, metus sed tincidunt fringilla, odio velit ornare augue, id dapibus neque odio in enim. Phasellus id felis purus. Proin porttitor eros eu arcu hendrerit venenatis. Nullam feugiat egestas tortor, vel sollicitudin ante ultricies eget. Nunc malesuada et nibh vel sollicitudin. \n Morbi dapibus, elit eget rhoncus consectetur, arcu dui dignissim turpis, ac convallis ante metus ut tortor. Nunc et hendrerit nibh, quis ornare sapien. Maecenas imperdiet eget tortor sagittis maximus. Duis augue sapien, commodo ac maximus vitae, gravida eget odio. Suspendisse iaculis leo et mi mollis vehicula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam fringilla malesuada maximus. Etiam ultricies, neque ac tristique rhoncus, urna enim lobortis elit, porttitor dictum mauris enim ut libero. Sed augue velit, interdum faucibus lectus non, auctor mattis dolor. Fusce pellentesque ornare est sed ultrices. Suspendisse finibus mi fermentum turpis scelerisque, et mattis erat lacinia. Aenean augue urna, blandit eget aliquet ut, hendrerit nec quam.\n Phasellus aliquet porttitor eros, eu ullamcorper odio ultricies sit amet. Praesent placerat nibh quis nulla iaculis, eu maximus tortor ultricies. Vivamus et elit sed nulla porta ultricies ut blandit elit. Praesent molestie ac risus nec euismod. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut eget elit quis ipsum accumsan dictum. Cras purus erat, faucibus in nisi non, tempor laoreet sapien.")
-        } else {
-            cell.setupCellData(title: "Title + \(indexPath.row)", text: "Hi bitch")
-        }
+        guard let article = homeModel?.articles[indexPath.row] else { return UITableViewCell() }
+        cell.setupCellData(article: article)
+        
         return cell
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -154,11 +180,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UICollectionViewExtensions
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        guard let homeModel = homeModel else { return 0 }
+        return homeModel.banners.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannersCollectionViewCell", for: indexPath as IndexPath) as! BannerCollectionViewCell
-        cell.setupCellData(name: "Баннер", color: "#0000ff", active: true)
+        guard let banner = homeModel?.banners[indexPath.row] else { return UICollectionViewCell() }
+        cell.setupCellData(banner: banner)
         return cell
     }
 }

@@ -36,10 +36,10 @@ class BannerCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    func setupCellData(name: String, color: String, active: Bool) {
-        self.name = name
-        self.color = color
-        self.active = active
+    func setupCellData(banner: BannerModel) {
+        self.name = banner.name
+        self.color = banner.color
+        self.active = banner.active
     }
     private func setupCell() {
         layer.cornerRadius = 25

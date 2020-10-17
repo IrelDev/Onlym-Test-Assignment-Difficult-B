@@ -64,9 +64,9 @@ class ArticleTableViewCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: 0.0),
                     ])
     }
-    func setupCellData(title: String, text: String) {
-        self.title = title
-        self.descriptionText = text
+    func setupCellData(article: ArticleModel) {
+        self.title = article.title
+        self.descriptionText = article.text
     }
 
 }
