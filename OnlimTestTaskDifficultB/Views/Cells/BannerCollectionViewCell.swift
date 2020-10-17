@@ -25,6 +25,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
         nameLabel.font = nameLabel.font.withSize(30)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.backgroundColor = .clear
+        nameLabel.textColor = .black
         nameLabel.textAlignment = .center
         return nameLabel
     }()

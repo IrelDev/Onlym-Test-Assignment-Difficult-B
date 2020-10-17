@@ -25,6 +25,7 @@ class ArticleTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
         
         return stackView
     }()
@@ -47,7 +48,7 @@ class ArticleTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupCell()
@@ -58,15 +59,15 @@ class ArticleTableViewCell: UITableViewCell {
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-                    stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 0.0),
+            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 0.0),
             stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: 0.0),
             stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: 0.0),
             stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: 0.0),
-                    ])
+        ])
     }
     func setupCellData(article: ArticleModel) {
-        self.title = article.title
+        self.title = "Статья \(article.title)"
         self.descriptionText = article.text
     }
-
+    
 }

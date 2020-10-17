@@ -105,6 +105,7 @@ class HomeViewController: UIViewController {
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsNavigationBarTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNavigationBarButtonTapped))
+        title = "Главная"
     }
     func setupViews() {
         view.addSubview(bannersCollectionView)
@@ -132,13 +133,17 @@ class HomeViewController: UIViewController {
             articleTableView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
     }
+    // MARK: - Navigation
     @objc func settingsNavigationBarTapped() {
         let settingsViewController = SettingsViewController()
-        navigationController?.pushViewController(settingsViewController, animated: true)
+        settingsViewController.modalPresentationStyle = .formSheet
+        navigationController?.present(settingsViewController, animated: true)
     }
     @objc func addNavigationBarButtonTapped() {
         let newBannerViewController = NewBannerViewController()
-        navigationController?.pushViewController(newBannerViewController, animated: true)
+        newBannerViewController.modalPresentationStyle = .formSheet
+        navigationController?.present(newBannerViewController, animated: true)
+        
         newBannerViewController.onSaveClosure = {
             self.bannersCollectionView.reloadData()
             self.articleTableView.reloadData()
@@ -165,7 +170,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         label.font = label.font.withSize(30)
         
         label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-        label.text = "Заголовок"
+        label.text = "Все статьи"
         headerView.addSubview(label)
         
         return headerView
@@ -179,6 +184,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let articleDetailViewController = ArticleDetailViewController()
+        
+        guard let article = homeModel?.articles[indexPath.row] else { return}
+        
+        articleDetailViewController.setData(article: article, articles: homeModel!.articles, indexPath: indexPath)
+        
+        navigationController?.pushViewController(articleDetailViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 // MARK: - UICollectionViewExtensions

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C246D649253B320700E874F5 /* IntrisicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C246D648253B320700E874F5 /* IntrisicTableView.swift */; };
 		C25853F02539DEE80015CA45 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853EF2539DEE80015CA45 /* HomeModel.swift */; };
 		C25853F32539DF010015CA45 /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853F22539DF010015CA45 /* ArticleModel.swift */; };
 		C25853F62539DF080015CA45 /* BannerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25853F52539DF080015CA45 /* BannerModel.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C246D648253B320700E874F5 /* IntrisicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrisicTableView.swift; sourceTree = "<group>"; };
 		C25853EF2539DEE80015CA45 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		C25853F22539DF010015CA45 /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
 		C25853F52539DF080015CA45 /* BannerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModel.swift; sourceTree = "<group>"; };
@@ -68,6 +70,15 @@
 				C2E3D411253A9C7A007796C0 /* CoreDataService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C246D64B253B4B9200E874F5 /* ArticleViews */ = {
+			isa = PBXGroup;
+			children = (
+				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
+				C246D648253B320700E874F5 /* IntrisicTableView.swift */,
+			);
+			path = ArticleViews;
 			sourceTree = "<group>";
 		};
 		C2AD68C82539D1B700187118 = {
@@ -120,7 +131,7 @@
 				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
 				C2E3D418253ABAFE007796C0 /* SettingsViewController.swift */,
 				C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */,
-				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
+				C246D64B253B4B9200E874F5 /* ArticleViews */,
 				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
 			path = Views;
@@ -223,6 +234,7 @@
 				C2E3D41C253ABB34007796C0 /* NewBannerViewController.swift in Sources */,
 				C2AD68DF2539D1B700187118 /* OnlimTestTaskDifficultB.xcdatamodeld in Sources */,
 				C25853F02539DEE80015CA45 /* HomeModel.swift in Sources */,
+				C246D649253B320700E874F5 /* IntrisicTableView.swift in Sources */,
 				C2E3D419253ABAFE007796C0 /* SettingsViewController.swift in Sources */,
 				C25853F32539DF010015CA45 /* ArticleModel.swift in Sources */,
 				C2E3D416253ABAEC007796C0 /* ArticleDetailViewController.swift in Sources */,

@@ -12,7 +12,18 @@ class NewBannerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .secondarySystemGroupedBackground
+        
+        setupNavigationBar()
+    
+    }
+    func setupViews() {
+    
+    }
+    func setupNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneButtonTapped))
+    }
+    @objc func doneButtonTapped() {
         
     }
 }
