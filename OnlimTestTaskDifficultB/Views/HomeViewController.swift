@@ -8,6 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    var homeModel: HomeModel?
+
     private let bannersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -32,10 +34,46 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        firstLaunchHandler()
         
         setupNavigationBar()
         setupViews()
         setupAutoLayout()
+    }
+    func firstLaunchHandler() {
+        let flag = "hasBeenLaunchedBeforeFlag"
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: flag)
+        
+        if isFirstLaunch {
+            guard let url = URL(string: "https://onlym.ru/api_test/test.json") else { return }
+            let dataFetcherService = DataFetcherService()
+            dataFetcherService.fetchDataFromURl(url: url) { [self] (response: HomeModel?) in
+                if let response = response {
+                    homeModel = response
+                    print("who")
+                    //save to coredata
+                    UserDefaults.standard.set(true, forKey: flag)
+                    UserDefaults.standard.synchronize()
+                } else {
+                    print("who")
+                    let alert = UIAlertController(title: "Что-то сломалось", message: "Произошла ошибка. Проверьте, есть ли подключение к интернету", preferredStyle: .alert)
+                    let retryAction = UIAlertAction(title: "Попробовать еще раз", style: .default) {_ in
+                        firstLaunchHandler()
+                    }
+                    let cancelAction = UIAlertAction(title: "Отмена", style: .destructive)
+                    
+                    alert.addAction(retryAction)
+                    alert.addAction(cancelAction)
+                    
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true)
+                    }
+                }
+            }
+        } else {
+            //check is in coredata
+            //homemodel = coredata..
+        }
     }
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsNavigationBarTapped))
@@ -111,6 +149,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return 250
     }
 }
+// MARK: - UICollectionViewExtensions
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         5
