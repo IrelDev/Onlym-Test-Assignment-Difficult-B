@@ -21,6 +21,7 @@
 		C2E3D4012539F34E007796C0 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4002539F34E007796C0 /* BannerCollectionViewCell.swift */; };
 		C2E3D4042539F35B007796C0 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4032539F35B007796C0 /* ArticleTableViewCell.swift */; };
 		C2E3D4092539F655007796C0 /* UIColorHexExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */; };
+		C2E3D412253A9C7A007796C0 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D411253A9C7A007796C0 /* CoreDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		C2E3D4002539F34E007796C0 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2E3D4032539F35B007796C0 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHexExtension.swift; sourceTree = "<group>"; };
+		C2E3D411253A9C7A007796C0 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataService.swift; path = OnlimTestTaskDifficultB/Services/CoreDataService.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
+				C2E3D411253A9C7A007796C0 /* CoreDataService.swift */,
 				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
 			path = Views;
@@ -205,6 +208,7 @@
 				C2E3D4012539F34E007796C0 /* BannerCollectionViewCell.swift in Sources */,
 				C2AD68D92539D1B700187118 /* HomeViewController.swift in Sources */,
 				C2AD68D52539D1B700187118 /* AppDelegate.swift in Sources */,
+				C2E3D412253A9C7A007796C0 /* CoreDataService.swift in Sources */,
 				C25853F62539DF080015CA45 /* BannerModel.swift in Sources */,
 				C2E3D4092539F655007796C0 /* UIColorHexExtension.swift in Sources */,
 				C2AD68DF2539D1B700187118 /* OnlimTestTaskDifficultB.xcdatamodeld in Sources */,
