@@ -8,9 +8,9 @@
 import Foundation
 
 struct DataFetcherService {
-    func fetchDataFromURl<Type: Codable>(url: URL, completion: @escaping (Type?) -> Void) {        
+    func fetchDataFromURl<Type: Codable>(url: URL, completion: @escaping (Type?, Data?) -> Void) {
         let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error ) in
-            guard error == nil else { print(debugPrint(error!)); completion(nil); return; }
+            guard error == nil else { print(debugPrint(error!)); completion(nil, nil); return; }
             guard let data = data else { return }
             
             let jsonDecoder = JSONDecoder()
@@ -18,7 +18,7 @@ struct DataFetcherService {
             
             let wrappedResponse = try? jsonDecoder.decode(Type.self, from: data)
             
-            completion(wrappedResponse)
+            completion(wrappedResponse, data)
         }
         dataTask.resume()
     }
