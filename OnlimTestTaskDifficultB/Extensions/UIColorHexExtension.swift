@@ -10,12 +10,12 @@ import UIKit
 extension UIColor {
   
   convenience init(_ hex: String, alpha: CGFloat = 1.0) {
-    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     
-    if (cString.hasPrefix("#")) { cString.removeFirst() }
+    if cString.hasPrefix("#") { cString.removeFirst() }
     
-    if ((cString.count) != 6) {
-        self.init("ff0000") // return red color for wrong hex input
+    if (cString.count) != 6 {
+        self.init("ff0000")
       return
     }
     
@@ -27,5 +27,4 @@ extension UIColor {
               blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
               alpha: alpha)
   }
-
 }
