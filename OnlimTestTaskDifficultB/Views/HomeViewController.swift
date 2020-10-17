@@ -57,10 +57,12 @@ class HomeViewController: UIViewController {
                 } else {
                     print("who")
                     let alert = UIAlertController(title: "Что-то сломалось", message: "Произошла ошибка. Проверьте, есть ли подключение к интернету", preferredStyle: .alert)
-                    let retryAction = UIAlertAction(title: "Попробовать еще раз", style: .default) {_ in
+                    let retryAction = UIAlertAction(title: "Попробовать еще раз", style: .default) { _ in
                         firstLaunchHandler()
                     }
-                    let cancelAction = UIAlertAction(title: "Отмена", style: .destructive)
+                    let cancelAction = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+                        exit(0);
+                    }
                     
                     alert.addAction(retryAction)
                     alert.addAction(cancelAction)
