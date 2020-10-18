@@ -72,15 +72,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C246D64B253B4B9200E874F5 /* ArticleViews */ = {
-			isa = PBXGroup;
-			children = (
-				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
-				C246D648253B320700E874F5 /* IntrisicTableView.swift */,
-			);
-			path = ArticleViews;
-			sourceTree = "<group>";
-		};
 		C2AD68C82539D1B700187118 = {
 			isa = PBXGroup;
 			children = (
@@ -128,10 +119,11 @@
 		C2AD68F12539D71100187118 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C246D648253B320700E874F5 /* IntrisicTableView.swift */,
 				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
+				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
 				C2E3D418253ABAFE007796C0 /* SettingsViewController.swift */,
 				C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */,
-				C246D64B253B4B9200E874F5 /* ArticleViews */,
 				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
 			path = Views;

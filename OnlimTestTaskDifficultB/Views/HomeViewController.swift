@@ -10,6 +10,12 @@ import UIKit
 class HomeViewController: UIViewController {
     var homeModel: HomeModel?
     
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrollView
+    }()
     private let bannersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -23,14 +29,29 @@ class HomeViewController: UIViewController {
         
         return bannersCollectionView
     }()
-    
-    let articleTableView: UITableView = {
-        let articleTableView = UITableView(frame: .zero, style: .insetGrouped)
+    let articleTableView: IntrinsicTableView = {
+        let articleTableView = IntrinsicTableView(frame: .zero, style: .insetGrouped)
         articleTableView.backgroundColor = .secondarySystemGroupedBackground
+        articleTableView.isScrollEnabled = false
         
         articleTableView.translatesAutoresizingMaskIntoConstraints = false
         return articleTableView
     }()
+    private var previousIndexPathAtCenter: IndexPath?
+
+    private var currentIndexPath: IndexPath? {
+        let center = view.convert(bannersCollectionView.center, to: bannersCollectionView)
+        return bannersCollectionView.indexPathForItem(at: center)
+    }
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+
+        if let indexAtCenter = currentIndexPath {
+            previousIndexPathAtCenter = indexAtCenter
+        }
+        
+        bannersCollectionView.collectionViewLayout.invalidateLayout()
+    }
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +61,11 @@ class HomeViewController: UIViewController {
         setupViews()
         setupAutoLayout()
     }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        bannersCollectionView.collectionViewLayout.invalidateLayout()
+    override func viewDidLayoutSubviews() {
+        let contentRect: CGRect = scrollView.subviews.reduce(into: .zero) { rect, view in
+            rect = rect.union(view.frame)
+        }
+        scrollView.contentSize = contentRect.size
     }
     func firstLaunchHandler() {
         let flag = "hasBeenLaunchedBeforeFlag"
@@ -108,13 +131,14 @@ class HomeViewController: UIViewController {
         title = "Главная"
     }
     func setupViews() {
-        view.addSubview(bannersCollectionView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(bannersCollectionView)
         
         bannersCollectionView.delegate = self
         bannersCollectionView.dataSource = self
         bannersCollectionView.register(BannerCollectionViewCell.self, forCellWithReuseIdentifier: "bannersCollectionViewCell")
         
-        view.addSubview(articleTableView)
+        scrollView.addSubview(articleTableView)
         articleTableView.delegate = self
         articleTableView.dataSource = self
         
@@ -122,14 +146,19 @@ class HomeViewController: UIViewController {
     }
     func setupAutoLayout() {
         NSLayoutConstraint.activate([
-            bannersCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
+        NSLayoutConstraint.activate([
+            bannersCollectionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
             bannersCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             bannersCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             bannersCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25)
         ])
         NSLayoutConstraint.activate([
             articleTableView.topAnchor.constraint(equalTo: bannersCollectionView.bottomAnchor, constant: 10),
-            articleTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             articleTableView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
     }
@@ -210,6 +239,18 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+
+        guard let oldCenter = previousIndexPathAtCenter else {
+            return proposedContentOffset
+        }
+
+        let attrs =  collectionView.layoutAttributesForItem(at: oldCenter)
+
+        let newOriginForOldIndex = attrs?.frame.origin
+
+        return newOriginForOldIndex ?? proposedContentOffset
+    }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
