@@ -8,7 +8,12 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    var homeModel: HomeModel?
+    var homeModel: HomeModel? {
+        didSet {
+            activeBannerCells = homeModel?.banners.filter { $0.active == true }
+        }
+    }
+    var activeBannerCells: [BannerModel]?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -228,25 +233,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UICollectionViewExtensions
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let homeModel = homeModel else { return 0 }
-        return homeModel.banners.count
+        guard let activeBannerCells = activeBannerCells else { return 0 }
+        return activeBannerCells.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannersCollectionViewCell", for: indexPath as IndexPath) as! BannerCollectionViewCell
-        guard let banner = homeModel?.banners[indexPath.row] else { return UICollectionViewCell() }
+        guard let banner = activeBannerCells?[indexPath.row] else { return UICollectionViewCell() }
+        
         cell.setupCellData(banner: banner)
         return cell
     }
 }
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-
         guard let oldCenter = previousIndexPathAtCenter else {
             return proposedContentOffset
         }
-
         let attrs =  collectionView.layoutAttributesForItem(at: oldCenter)
-
         let newOriginForOldIndex = attrs?.frame.origin
 
         return newOriginForOldIndex ?? proposedContentOffset
