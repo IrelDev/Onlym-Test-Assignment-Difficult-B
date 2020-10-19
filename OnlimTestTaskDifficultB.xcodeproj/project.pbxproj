@@ -98,6 +98,7 @@
 				C23778C82539EA0F0051FB52 /* Services */,
 				C2AD68F02539D70D00187118 /* Models */,
 				C2AD68F12539D71100187118 /* Views */,
+				C2DD2932253D9EE400C0E6EA /* Controllers */,
 				C2AD68E22539D1B900187118 /* LaunchScreen.storyboard */,
 				C2AD68E02539D1B900187118 /* Assets.xcassets */,
 				C2AD68E52539D1B900187118 /* Info.plist */,
@@ -120,13 +121,20 @@
 			isa = PBXGroup;
 			children = (
 				C246D648253B320700E874F5 /* IntrisicTableView.swift */,
-				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
-				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
-				C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */,
-				C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */,
 				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C2DD2932253D9EE400C0E6EA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
+				C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */,
+				C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */,
+				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C2E3D3FE2539F2FF007796C0 /* Cells */ = {
