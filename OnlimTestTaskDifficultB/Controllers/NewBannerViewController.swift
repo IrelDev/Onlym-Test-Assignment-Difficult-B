@@ -86,6 +86,10 @@ class NewBannerViewController: UIViewController {
         
         bottomLine.frame = CGRect(x: 0.0, y: textField.bounds.height - 1, width: textFieldStackView.bounds.width, height: 1.0)
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
     func setupViews() {
         view.addSubview(newBannerLabel)
         
