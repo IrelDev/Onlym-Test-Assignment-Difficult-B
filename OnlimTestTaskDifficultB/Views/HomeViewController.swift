@@ -171,7 +171,25 @@ class HomeViewController: UIViewController {
     @objc func settingsNavigationBarTapped() {
         let settingsViewController = BannerSettingsViewController()
         settingsViewController.modalPresentationStyle = .formSheet
+        
+        guard let banners = homeModel?.banners else { return }
+        settingsViewController.setData(banners: banners)
         navigationController?.present(UINavigationController(rootViewController: settingsViewController), animated: true)
+        
+        settingsViewController.onSaveClosure = { banners in
+            guard self.homeModel?.banners != banners else { return }
+            
+            self.homeModel?.banners = banners
+            self.bannersCollectionView.reloadData()
+            
+            DispatchQueue.main.async {
+                let coreDataService = CoreDataService()
+                
+                let encoder = JSONEncoder()
+                guard let data = try? encoder.encode(self.homeModel) else { return }
+                coreDataService.saveHomeModelData(data: NSData(data: data))
+            }
+        }
     }
     @objc func addNavigationBarButtonTapped() {
         let newBannerViewController = NewBannerViewController()
@@ -213,7 +231,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         }
         let attrs =  collectionView.layoutAttributesForItem(at: oldCenter)
         let newOriginForOldIndex = attrs?.frame.origin
-
+        
         return newOriginForOldIndex ?? proposedContentOffset
     }
     func collectionView(_ collectionView: UICollectionView,

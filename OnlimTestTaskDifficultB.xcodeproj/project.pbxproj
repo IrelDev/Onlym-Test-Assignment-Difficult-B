@@ -122,8 +122,8 @@
 				C246D648253B320700E874F5 /* IntrisicTableView.swift */,
 				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
 				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
-				C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */,
 				C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */,
+				C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */,
 				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
 			path = Views;
