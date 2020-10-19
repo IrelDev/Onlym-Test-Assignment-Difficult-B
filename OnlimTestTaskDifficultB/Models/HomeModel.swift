@@ -8,6 +8,6 @@
 import Foundation
 
 struct HomeModel: Codable {
-    let banners: [BannerModel]
-    let articles: [ArticleModel]
+    var banners: [BannerModel]
+    var articles: [ArticleModel]
 }

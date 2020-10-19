@@ -8,7 +8,7 @@
 import Foundation
 
 struct BannerModel: Codable {
-    let name: String
-    let color: String
-    let active: Bool
+    var name: String
+    var color: String
+    var active: Bool
 }
