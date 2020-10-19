@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BannerModel: Codable {
+struct BannerModel: Codable, Equatable {
     var name: String
     var color: String
     var active: Bool
