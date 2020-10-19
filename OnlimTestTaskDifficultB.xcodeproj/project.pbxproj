@@ -24,7 +24,7 @@
 		C2E3D4092539F655007796C0 /* UIColorHexExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */; };
 		C2E3D412253A9C7A007796C0 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D411253A9C7A007796C0 /* CoreDataService.swift */; };
 		C2E3D416253ABAEC007796C0 /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */; };
-		C2E3D419253ABAFE007796C0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D418253ABAFE007796C0 /* SettingsViewController.swift */; };
+		C2E3D419253ABAFE007796C0 /* BannerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */; };
 		C2E3D41C253ABB34007796C0 /* NewBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		C2E3D4082539F655007796C0 /* UIColorHexExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHexExtension.swift; sourceTree = "<group>"; };
 		C2E3D411253A9C7A007796C0 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataService.swift; path = OnlimTestTaskDifficultB/Services/CoreDataService.swift; sourceTree = SOURCE_ROOT; };
 		C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
-		C2E3D418253ABAFE007796C0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerSettingsViewController.swift; sourceTree = "<group>"; };
 		C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,7 +122,7 @@
 				C246D648253B320700E874F5 /* IntrisicTableView.swift */,
 				C2AD68D82539D1B700187118 /* HomeViewController.swift */,
 				C2E3D415253ABAEC007796C0 /* ArticleDetailViewController.swift */,
-				C2E3D418253ABAFE007796C0 /* SettingsViewController.swift */,
+				C2E3D418253ABAFE007796C0 /* BannerSettingsViewController.swift */,
 				C2E3D41B253ABB34007796C0 /* NewBannerViewController.swift */,
 				C2E3D3FE2539F2FF007796C0 /* Cells */,
 			);
@@ -227,7 +227,7 @@
 				C2AD68DF2539D1B700187118 /* OnlimTestTaskDifficultB.xcdatamodeld in Sources */,
 				C25853F02539DEE80015CA45 /* HomeModel.swift in Sources */,
 				C246D649253B320700E874F5 /* IntrisicTableView.swift in Sources */,
-				C2E3D419253ABAFE007796C0 /* SettingsViewController.swift in Sources */,
+				C2E3D419253ABAFE007796C0 /* BannerSettingsViewController.swift in Sources */,
 				C25853F32539DF010015CA45 /* ArticleModel.swift in Sources */,
 				C2E3D416253ABAEC007796C0 /* ArticleDetailViewController.swift in Sources */,
 				C2AD68D72539D1B700187118 /* SceneDelegate.swift in Sources */,

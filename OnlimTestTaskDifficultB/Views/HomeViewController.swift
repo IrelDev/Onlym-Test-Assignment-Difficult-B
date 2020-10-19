@@ -169,18 +169,18 @@ class HomeViewController: UIViewController {
     }
     // MARK: - Navigation
     @objc func settingsNavigationBarTapped() {
-        let settingsViewController = SettingsViewController()
+        let settingsViewController = BannerSettingsViewController()
         settingsViewController.modalPresentationStyle = .formSheet
         navigationController?.present(settingsViewController, animated: true)
     }
     @objc func addNavigationBarButtonTapped() {
         let newBannerViewController = NewBannerViewController()
         newBannerViewController.modalPresentationStyle = .formSheet
-        navigationController?.present(newBannerViewController, animated: true)
+        navigationController?.present(UINavigationController(rootViewController: newBannerViewController), animated: true)
         
-        newBannerViewController.onSaveClosure = {
+        newBannerViewController.onSaveClosure = { banner, index in
+            self.homeModel?.banners.insert(banner, at: index)
             self.bannersCollectionView.reloadData()
-            self.articleTableView.reloadData()
         }
     }
 }

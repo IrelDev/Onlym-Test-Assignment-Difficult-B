@@ -7,11 +7,12 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class BannerSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemGroupedBackground
+        
         // Do any additional setup after loading the view.
     }
     
