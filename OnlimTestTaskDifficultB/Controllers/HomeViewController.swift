@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     var homeModel: HomeModel? {
         didSet {
+            guard oldValue?.banners != homeModel?.banners else { return }
             activeBannerCells = homeModel?.banners.filter { $0.active == true }
         }
     }
@@ -102,11 +103,16 @@ class HomeViewController: UIViewController {
                     let retryAction = UIAlertAction(title: "Попробовать еще раз", style: .default) { _ in
                         firstLaunchHandler()
                     }
+                    let createByYourselfAction = UIAlertAction(title: "Отменить скачивание", style: .default) { _ in
+                        UserDefaults.standard.set(true, forKey: flag)
+                        UserDefaults.standard.synchronize()
+                    }
                     let cancelAction = UIAlertAction(title: "Выйти", style: .destructive) { _ in
                         exit(0);
                     }
                     
                     alert.addAction(retryAction)
+                    alert.addAction(createByYourselfAction)
                     alert.addAction(cancelAction)
                     
                     DispatchQueue.main.async {
@@ -172,7 +178,9 @@ class HomeViewController: UIViewController {
         let settingsViewController = BannerSettingsViewController()
         settingsViewController.modalPresentationStyle = .formSheet
         
+        if self.homeModel == nil { self.homeModel = HomeModel(banners: [], articles: []) }
         guard let banners = homeModel?.banners else { return }
+        
         settingsViewController.setData(banners: banners)
         navigationController?.present(UINavigationController(rootViewController: settingsViewController), animated: true)
         
