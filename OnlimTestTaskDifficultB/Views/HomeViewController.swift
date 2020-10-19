@@ -171,7 +171,7 @@ class HomeViewController: UIViewController {
     @objc func settingsNavigationBarTapped() {
         let settingsViewController = BannerSettingsViewController()
         settingsViewController.modalPresentationStyle = .formSheet
-        navigationController?.present(settingsViewController, animated: true)
+        navigationController?.present(UINavigationController(rootViewController: settingsViewController), animated: true)
     }
     @objc func addNavigationBarButtonTapped() {
         let newBannerViewController = NewBannerViewController()
@@ -190,6 +190,42 @@ class HomeViewController: UIViewController {
                 coreDataService.saveHomeModelData(data: NSData(data: data))
             }
         }
+    }
+}
+// MARK: - UICollectionViewExtensions
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let activeBannerCells = activeBannerCells else { return 0 }
+        return activeBannerCells.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannersCollectionViewCell", for: indexPath as IndexPath) as! BannerCollectionViewCell
+        guard let banner = activeBannerCells?[indexPath.row] else { return UICollectionViewCell() }
+        
+        cell.setupCellData(banner: banner)
+        return cell
+    }
+}
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        guard let oldCenter = previousIndexPathAtCenter else {
+            return proposedContentOffset
+        }
+        let attrs =  collectionView.layoutAttributesForItem(at: oldCenter)
+        let newOriginForOldIndex = attrs?.frame.origin
+
+        return newOriginForOldIndex ?? proposedContentOffset
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: bannersCollectionView.bounds.width - 10, height: bannersCollectionView.bounds.height)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        10
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
 }
 // MARK: - UITableViewExtensions
@@ -236,41 +272,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         navigationController?.pushViewController(articleDetailViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-// MARK: - UICollectionViewExtensions
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let activeBannerCells = activeBannerCells else { return 0 }
-        return activeBannerCells.count
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannersCollectionViewCell", for: indexPath as IndexPath) as! BannerCollectionViewCell
-        guard let banner = activeBannerCells?[indexPath.row] else { return UICollectionViewCell() }
-        
-        cell.setupCellData(banner: banner)
-        return cell
-    }
-}
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        guard let oldCenter = previousIndexPathAtCenter else {
-            return proposedContentOffset
-        }
-        let attrs =  collectionView.layoutAttributesForItem(at: oldCenter)
-        let newOriginForOldIndex = attrs?.frame.origin
-
-        return newOriginForOldIndex ?? proposedContentOffset
-    }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: bannersCollectionView.bounds.width - 10, height: bannersCollectionView.bounds.height)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
 }

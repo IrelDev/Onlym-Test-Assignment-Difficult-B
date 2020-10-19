@@ -123,6 +123,11 @@ class NewBannerViewController: UIViewController {
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneButtonTapped))
     }
+    @objc func doneButtonTapped() {
+        guard let onSaveClosure = onSaveClosure, banner.name != "" else { dismiss(animated: true); return; }
+        onSaveClosure(banner, 0)
+        dismiss(animated: true)
+    }
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else { return }
         banner.name = text
@@ -138,11 +143,6 @@ class NewBannerViewController: UIViewController {
         default:
             break
         }
-    }
-    @objc func doneButtonTapped() {
-        guard let onSaveClosure = onSaveClosure, banner.name != "" else { dismiss(animated: true); return; }
-        onSaveClosure(banner, 0)
-        dismiss(animated: true)
     }
 }
 extension NewBannerViewController: UITextFieldDelegate {
