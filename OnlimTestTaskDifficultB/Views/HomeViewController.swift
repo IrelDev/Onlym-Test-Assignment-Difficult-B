@@ -181,6 +181,14 @@ class HomeViewController: UIViewController {
         newBannerViewController.onSaveClosure = { banner, index in
             self.homeModel?.banners.insert(banner, at: index)
             self.bannersCollectionView.reloadData()
+            
+            DispatchQueue.main.async {
+                let coreDataService = CoreDataService()
+                
+                let encoder = JSONEncoder()
+                guard let data = try? encoder.encode(self.homeModel) else { return }
+                coreDataService.saveHomeModelData(data: NSData(data: data))
+            }
         }
     }
 }
