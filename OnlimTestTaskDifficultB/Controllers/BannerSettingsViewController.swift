@@ -19,10 +19,19 @@ class BannerSettingsViewController: UIViewController {
         
         return tableView
     }()
+    private let plusButton: UIButton = {
+        let plusButton = UIButton(type: .system)
+        plusButton.setTitle("+", for: .normal)
+        plusButton.setTitleColor(.label, for: .normal)
+        plusButton.titleLabel?.font = plusButton.titleLabel?.font.withSize(40)
+        plusButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        plusButton.translatesAutoresizingMaskIntoConstraints = false
+        return plusButton
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .secondarySystemGroupedBackground
+        view.backgroundColor = .systemBackground
         
         setupNavigationBar()
         setupViews()
@@ -32,21 +41,27 @@ class BannerSettingsViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        view.addSubview(plusButton)
     }
     func setupAutoLayout() {
         NSLayoutConstraint.activate([
-            tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
+            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
+        ])
+        NSLayoutConstraint.activate([
+            plusButton.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            plusButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            plusButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            plusButton.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(doneButtonTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNavigationBarButtonTapped))
-        title = "Настройки"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Изменить", style: .plain, target: self, action: #selector(editButtonAction))
     }
-    @objc func addNavigationBarButtonTapped() {
+    @objc func addButtonTapped() {
         let newBannerViewController = NewBannerViewController()
         newBannerViewController.modalPresentationStyle = .formSheet
         navigationController?.present(UINavigationController(rootViewController: newBannerViewController), animated: true)
@@ -60,6 +75,16 @@ class BannerSettingsViewController: UIViewController {
         guard let onSaveClosure = onSaveClosure, let banners = banners else { dismiss(animated: true); return; }
         onSaveClosure(banners)
         dismiss(animated: true)
+    }
+    @objc func editButtonAction() {
+        UIView.animate(withDuration: 0.25) {
+            self.tableView.isEditing.toggle()
+            if self.tableView.isEditing {
+                self.navigationItem.rightBarButtonItem?.title = "Закончить"
+            } else {
+                self.navigationItem.rightBarButtonItem?.title = "Изменить"
+            }
+        }
     }
     func setData(banners: [BannerModel]) {
         self.banners = banners
@@ -89,6 +114,18 @@ extension BannerSettingsViewController: UITableViewDelegate, UITableViewDataSour
     }
     @objc func switchValueChanged(uiSwitch: UISwitch) {
         banners![uiSwitch.tag].active = uiSwitch.isOn
+    }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard let movedObject = banners?[sourceIndexPath.row] else { return }
+        
+        self.banners?.remove(at: sourceIndexPath.row)
+        self.banners?.insert(movedObject, at: destinationIndexPath.row)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
